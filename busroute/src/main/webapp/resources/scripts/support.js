@@ -10,7 +10,7 @@ app.controller('indexcontroller', function($scope, $http, $location) {
 
 app.config(function($routeProvider) {
 	$routeProvider.when("/", {
-	templateUrl : "viewPackages.html",
+	templateUrl : "dashboard.html",
 
 		});
 	$routeProvider.when("/packageView", {
