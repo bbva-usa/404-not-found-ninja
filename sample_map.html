@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+       /* Set the size of the div element that contains the map */
+      #map {
+        height: 400px;  /* The height is 400 pixels */
+        width: 100%;  /* The width is the width of the web page */
+       }
+    </style>
+  </head>
+  <body>
+    <h3>My Google Maps Demo</h3>
+    <!--The div element for the map -->
+    <div id="map"></div>
+    <script>
+// Initialize and add the map
+function initMap() {
+  var directionsService = new google.maps.DirectionsService();
+  var directionsRenderer = new google.maps.DirectionsRenderer();
+
+  // The location of Uluru
+  var myCenter =  {lat: 33.474912, lng: -86.910001};
+  // The map, centered at Uluru
+  var map = new google.maps.Map(
+      document.getElementById('map'), {zoom: 12, center: myCenter});
+
+ 
+ var image = 
+  'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
+       
+
+  var marker = new google.maps.Marker({
+  position:myCenter,
+  icon:image,
+  map: map
+});
+
+directionsRenderer.setMap(map);
+
+
+   map.addListener('center_changed', function() {
+          // 3 seconds after the center of the map has changed, pan back to the
+          calculateAndDisplayRoute(directionsService, directionsRenderer);
+          // marker.
+          window.setTimeout(function() {
+            map.panTo(marker.getPosition());
+          }, 3000);
+        });
+
+        marker.addListener('click', function() {
+          map.setZoom(15);
+          map.setCenter(marker.getPosition());
+        });
+
+
+        var onChangeHandler = function() {
+          calculateAndDisplayRoute(directionsService, directionsRenderer);
+        };
+        //document.getElementById('start').addEventListener('change', onChangeHandler);
+        //document.getElementById('end').addEventListener('change', onChangeHandler);
+      }
+
+      function calculateAndDisplayRoute(directionsService, directionsRenderer) {
+        directionsService.route(
+            {
+              origin: {query: 'chicago, il'},
+              destination: {query: 'st louis, mo'},
+              travelMode: 'DRIVING'
+            },
+            function(response, status) {
+              if (status === 'OK') {
+                directionsRenderer.setDirections(response);
+              } else {
+                window.alert('Directions request failed due to ' + status);
+              }
+            });
+
+
+
+  // The marker, positioned at Uluru
+  //var marker = new google.maps.Marker({position: myCenter, map: map});
+}
+    </script>
+    <!--Load the API from the specified URL
+    * The async attribute allows the browser to render the page while the API loads
+    * The key parameter will contain your own API key (which is not needed for this tutorial)
+    * The callback parameter executes the initMap() function
+    -->
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDP746zzrY3NWx0jm7PdN1OAWoeTulNQwc&callback=initMap">
+    </script>
+  </body>
+</html>
