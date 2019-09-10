@@ -12,6 +12,9 @@ app.config(function($routeProvider) {
 	$routeProvider.when("/login", {
 		templateUrl : "login.html"
 			});
+	$routeProvider.when("/adminpage", {
+		templateUrl : "adminpage.html"
+			});
 
 });
 
@@ -100,5 +103,19 @@ app.controller('mapViewController' , function($scope, $location){
 	}
 
 
+
+});
+
+
+
+app.controller('loginController', function($scope, $http, $location){
+	$scope.adminuser="admin";
+	$scope.password="password";
+	$scope.adminLogged=false;
+	$scope.login = function(username,password)
+	{
+		if(username==$scope.adminuser && password==$scope.password)
+			$scope.adminLogged=true;
+	}
 
 });

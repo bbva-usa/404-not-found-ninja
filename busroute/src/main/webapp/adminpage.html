@@ -1,0 +1,20 @@
+
+<div class="container">
+<div ng-show="adminLogged">
+	<br> <br> <br> <br> <br>
+
+	<div class="input-group form-group">
+
+		<textarea class="form-control"
+			style="width: 50%; height: 20%; outline: 0;"
+			placeholder="enter alert upto 160 characters" ng-model="alertMessage">  </textarea>
+	</div>	
+		<button class="btn float-right login_btn">push alert</button>
+
+</div>	
+
+<div ng-show="!adminLogged">
+	<b> has login first</b> <a  class="linkText" href="#!/login">click to redirect to login</a>
+
+</div>
+</div>
