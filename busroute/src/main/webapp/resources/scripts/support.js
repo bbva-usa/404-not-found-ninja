@@ -14,6 +14,21 @@ app.service('login', function(){
 	}
 })
 
+app.service('busses', function(){
+	var Bus = {
+		id: "",
+		name: ""
+	};
+	return {
+		getBus: function(){
+			return Bus;
+		},
+		setBus: function(value){
+			Bus = value;
+		}
+	}
+});
+
 app.config(function($routeProvider) {
 	$routeProvider.when("/", {
 	templateUrl : "dashboard.html",
@@ -36,8 +51,25 @@ app.controller('adminController', function($scope,$location, login){
 app.controller('indexcontroller', function($scope, $http, $location) {
 
 });
-app.controller('dashboardController', function($scope, $http, $location){
+app.controller('dashboardController', function($scope, $http, $location, busses){
+	$scope.alertExist = false;
+	$scope.listAlerts = [];
 
+	$scope.listBusses = [
+    { id: 'BOE', name: 'Yellow'},
+    { id: 'DE9', name: 'Green'},
+    { id: 'GOES', name: 'Orange'},
+    { id: 'RES', name: 'Pink'},
+    { id: 'FHPS', name: 'Blue'}
+	];
+
+	function setBus(bus){
+		busses.setBus(bus);
+	}
+
+	function getAlerts(){
+		$scope.listAlerts = [];
+	}
 });
 
 app.controller('mapViewController' , function($scope, $location){
