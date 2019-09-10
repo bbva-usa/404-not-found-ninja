@@ -1,8 +1,18 @@
 
 
-var app = angular.module('busRouteApp', [ "ngRoute" ]);
+var app = angular.module('busRouteApp', [ "ngRoute"]);
 
-
+app.service('login', function(){
+	var logedIn = false;
+	return {
+		getLogin: function(){
+			return logedIn;
+		},
+		setLogin: function(value){
+			logedIn = value;
+		}
+	}
+})
 
 app.config(function($routeProvider) {
 	$routeProvider.when("/", {
@@ -15,6 +25,11 @@ app.config(function($routeProvider) {
 	$routeProvider.when("/adminpage", {
 		templateUrl : "adminpage.html"
 			});
+
+});
+
+app.controller('adminController', function($scope,$location, login){
+	$scope.adminLogged = login.getLogin();
 
 });
 
@@ -108,7 +123,7 @@ app.controller('mapViewController' , function($scope, $location){
 
 
 
-app.controller('loginController', function($scope, $http, $location,$window){
+app.controller('loginController', function($scope, $http, $location,$window, login){
 	console.log("invoked");
 	$scope.adminuser="admin";
 	$scope.password="password";
@@ -116,7 +131,9 @@ app.controller('loginController', function($scope, $http, $location,$window){
 	$scope.login = function(username,password){
 		console.log("invoked");
 		if(username==$scope.adminuser && password==$scope.password)
-			{ $scope.adminLogged=true;
+			{ 
+			$scope.adminLogged=true;
+			login.setLogin(true);
 			$window.location.href ="#!/adminpage";
 			}
 	};
