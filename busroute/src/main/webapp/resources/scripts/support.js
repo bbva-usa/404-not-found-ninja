@@ -170,4 +170,6 @@ app.controller('loginController', function($scope, $http, $location,$window, log
 			}
 	};
 
-});
+});  
+
+
