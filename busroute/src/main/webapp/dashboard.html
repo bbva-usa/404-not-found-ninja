@@ -1,6 +1,5 @@
 	<!-- main div that contains everything -->
-	<div class="container">
-		
+	<div ng-controller="dashboardController" class="container">
 		<br>
 		<br>
 		<br>
@@ -8,23 +7,18 @@
 		<div class="alert alert-danger" role="alert">
 			Bus A has been delayed 10 minutes
 		</div>
+		{{selectedBus}}
 		<!-- row for dropdown -->
 		<div class="row"> 
 			<div class="col align-self-center">
-				<div class="dropdown">
-					<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						Busses
-					</button>
-					<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-						<a class="dropdown-item" href="#">Bus A</a>
-						<a class="dropdown-item" href="#">Bus B</a>
-						<a class="dropdown-item" href="#">Bus C</a>
-						<a class="dropdown-item" href="#">Bus D</a>
-						<a class="dropdown-item" href="#">Bus E</a>
-						<a class="dropdown-item" href="#">Bus F</a>
-					</div>
-				</div>
+				<select name="Busses">
+					<option value=>Select a Bus</option>
+					<option ng-repeat="bus in listBusses" value="{{bus.id}}">{{bus.name}}</option>
+				</select>
 			</div>
+    </select>
+
+			<p>{{selectedBus}}</p>
 		</div>
 		<!-- row for the map -->
 		<div class="row">
@@ -33,3 +27,4 @@
 		</div>
 
 	</div>
+

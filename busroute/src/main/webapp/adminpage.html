@@ -1,8 +1,7 @@
 
-<div class="container">
+<div class="container" ng-controller="adminController">
 <div ng-show="adminLogged">
 	<br> <br> <br> <br> <br>
-
 	<div class="input-group form-group">
 
 		<textarea class="form-control"
@@ -14,7 +13,12 @@
 </div>	
 
 <div ng-show="!adminLogged">
-	<b> has login first</b> <a  class="linkText" href="#!/login">click to redirect to login</a>
+	<br>
+	
+	<h3>
+		Please login before entering an alert.
+	</h3>
+	<a  class="linkText" href="#!/login">click to redirect to login</a>
 
 </div>
 </div>
