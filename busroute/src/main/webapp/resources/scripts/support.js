@@ -108,14 +108,17 @@ app.controller('mapViewController' , function($scope, $location){
 
 
 
-app.controller('loginController', function($scope, $http, $location){
+app.controller('loginController', function($scope, $http, $location,$window){
+	console.log("invoked");
 	$scope.adminuser="admin";
 	$scope.password="password";
 	$scope.adminLogged=false;
-	$scope.login = function(username,password)
-	{
+	$scope.login = function(username,password){
+		console.log("invoked");
 		if(username==$scope.adminuser && password==$scope.password)
-			$scope.adminLogged=true;
-	}
+			{ $scope.adminLogged=true;
+			$window.location.href ="#!/adminpage";
+			}
+	};
 
 });
