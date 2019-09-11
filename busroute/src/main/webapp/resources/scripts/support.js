@@ -1,3 +1,4 @@
+/*
 function initMap() {
   var directionsService = new google.maps.DirectionsService();
   var directionsRenderer = new google.maps.DirectionsRenderer();
@@ -59,7 +60,7 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer, source,
     }
   });
 };
-
+*/
 var app = angular.module('busRouteApp', [ "ngRoute"]);
 
 app.service('login', function(){
@@ -103,6 +104,9 @@ app.config(function($routeProvider) {
 	$routeProvider.when("/mapview", {
 		templateUrl : "mapView.html"
 			});
+  $routeProvider.when("/map", {
+    templateUrl : "map.html"
+      });
 
 
 
@@ -138,7 +142,8 @@ app.controller('dashboardController', function($scope, $http, $location, busses)
 });
 
 app.controller('mapViewController' , function($scope, $location){
-	var busStopsFHPS = JSON.parse('{["Time" : "7:30 A.M.","Address" :	"Ave. C and 61st Street Back side of","Lat"	:"33.4984164","Long" : "-86.8967907"]}');
+	/*
+  var busStopsFHPS = JSON.parse('{["Time" : "7:30 A.M.","Address" :	"Ave. C and 61st Street Back side of","Lat"	:"33.4984164","Long" : "-86.8967907"]}');
 	var busStopsGOES = JSON.parse('{["Time" : "7:30 A.M.","Address" :	"Ave. C and 61st Street Back side of","Lat"	:"33.4984164","Long" : "-86.8967907"]}');
 
 	var centerMap = {lat:33.4859402, lng:-86.9119366}
@@ -214,7 +219,7 @@ app.controller('mapViewController' , function($scope, $location){
   	});
 	}
 
-
+*/
 
 });
 
