@@ -2,16 +2,30 @@ function initMap() {
       var directionsService = new google.maps.DirectionsService;
       var directionsRenderer = new google.maps.DirectionsRenderer;
       var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 8,
+        zoom: 14,
         center: {lat: 32.318230, lng:  -86.902298}
       });
       directionsRenderer.setMap(map);
 
-     
    window.onload = calculateAndDisplayRoute(directionsService, directionsRenderer);
-
+   
 }
 
+function addSchool(position, map){
+  var icon = {
+    url: "resources/images/school.png", // url
+    scaledSize: new google.maps.Size(100, 100), // scaled size
+    origin: new google.maps.Point(0,0), // origin
+    anchor: new google.maps.Point(0, 0) // anchor
+  };
+
+
+  let marker = new google.maps.Marker({ 
+  position:position, 
+  //icon: icon,
+  map: map 
+  });
+}
 function calculateAndDisplayRoute(directionsService, directionsRenderer) {
 
    var routes = [{"Time":"7:30 A.M.","Address":"Ave. C and 61st Street Back side of","Lat":"33.4984164","Long":"-86.8967907"},
@@ -43,6 +57,7 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer) {
   }, function(response, status) {
     if (status === 'OK') {
       directionsRenderer.setDirections(response);
+      //addSchool({lat: 32.318230, lng:  -86.902298}, map);
           } else {
             window.alert('Directions request failed due to ' + status);
           }
@@ -168,6 +183,12 @@ app.controller('dashboardController', function($scope, $http, $location, busses)
 
 app.controller('mapViewController' , function($scope, $location){
 	initMap();
+   $scope.routes = [
+{Time:"7:30 A.M.",Address:"Ave. C and 61st Street Back side of",Lat:"33.4984164",Long:"-86.8967907", Stop: "A"},
+{Time:"7:33 A.M.",Address:"Avenue C and Jerry D. Coleman",Lat:"33.4758812",Long:"-86.9173647", Stop: "B"},
+{Time:"7:35 A.M.",Address:"61st Street and Myron Massey Blvd.",Lat:"33.4769925",Long:"-86.9094935", Stop: "C"},
+{Time:"7:32 A.M.",Address:"60th Street and Myron Massey Blvd.",Lat:"33.4771589",Long:"-86.9093703", Stop: "D"}];
+
 });
 
 
