@@ -96,6 +96,10 @@ app.config(function($routeProvider) {
 	$routeProvider.when("/mapview", {
 		templateUrl : "mapView.html"
 	});
+	
+	$routeProvider.when("/logout", {
+		templateUrl : "logout.html"
+	});
 
 
 
@@ -115,33 +119,38 @@ $scope.listAlerts = [];
 		
 		   });
 	
-	$scope.deleteAllAlerts = function(){
-		
-		$http.delete("rest/alerts",{},{headers: {'Content-Type': 'application/json'} }).then(function(data){  });
-	};
+	
 	
 $scope.deleteAllAlerts = function(){
 		
 		$http.delete("rest/alerts",{},{headers: {'Content-Type': 'application/json'} }).then(function(data){  });
-		location.reload();
+		$window.location.href ="#!/blank";
+		$window.location.href ="#!/adminpage";
+		//location.reload();
 	};
 
 $scope.deleteAlert = function(message){
 		
 		$http.delete("rest/alerts/"+message,{},{headers: {'Content-Type': 'application/json'} }).then(function(data){  });
-		location.reload();
+		$window.location.href ="#!/blank";
+		$window.location.href ="#!/adminpage";
+		//location.reload();
 	};
 
 $scope.deleteAlert = function(message){
 		
 		$http.delete("rest/alerts/"+message,{},{headers: {'Content-Type': 'application/json'} }).then(function(data){  });
-		location.reload();
+		$window.location.href ="#!/blank";
+		$window.location.href ="#!/adminpage";
+		//location.reload();
 	};
 	
 $scope.pushAlert = function(message){
 		
 		$http.post("rest/alerts/"+message,{},{headers: {'Content-Type': 'application/json'} }).then(function(data){  });
-		location.reload();
+		$window.location.href ="#!/blank";
+		$window.location.href ="#!/adminpage";
+		//location.reload();
 	};
 
 });
@@ -192,18 +201,28 @@ app.controller('mapViewController' , function($scope, $location){
 });
 
 
+app.controller('logoutController', function($scope, $http, $location,$window, $cookies, $cookieStore){
+	$cookieStore.put('userlogged',false);
+	
+});
 
 app.controller('loginController', function($scope, $http, $location,$window, $cookies, $cookieStore){
-	console.log("invoked");
+	
+			
+
 	$scope.adminuser="admin";
 	$scope.password="password";
 	$scope.adminLogged=false;
+	if($cookieStore.get('userlogged'))
+	{	$scope.adminLogged=true;
+		$window.location.href ="#!/adminpage";
+	}
 	$scope.login = function(username,password){
 		console.log("invoked");
 		if(username==$scope.adminuser && password==$scope.password)
 		{ 
 			$scope.adminLogged=true;
-			$cookieStore.put('userlogged',true)
+			$cookieStore.put('userlogged',true);
 			$window.location.href ="#!/adminpage";
 		}
 	};

@@ -20,6 +20,7 @@ public class Alert {
 
 	@RequestMapping(value = "/alerts/{alertMessage}", method = RequestMethod.POST)
 	public void putAlertMessage(@PathVariable String alertMessage) {
+		if(!a.contains(alertMessage))
 		a.add(alertMessage);
 	}
 
