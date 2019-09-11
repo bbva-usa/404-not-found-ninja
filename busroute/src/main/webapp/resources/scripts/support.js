@@ -174,9 +174,11 @@ $scope.pushAlert = function(message){
 app.controller('indexcontroller', function($scope, $http, $location) {
 
 });
-app.controller('dashboardController', function($scope, $http, $location, busses, ampms){
+app.controller('dashboardController', function($scope, $http, $location, $timeout, busses, ampms){
 	$scope.alertExist = false;
 	$scope.listAlerts = [];
+	$scope.doFade=false;
+	$scope.doshow=true;
 	
 	$http.get("rest/alerts",{},{headers: {'Content-Type': 'application/json'} }).then(function(data){
 		if(data.data.length>0)
@@ -185,9 +187,16 @@ app.controller('dashboardController', function($scope, $http, $location, busses,
 			$scope.alertExist=true;
 			
 			}
-		
+		console.log($scope.listAlerts);
 		   });
-
+	
+	$timeout(function(){
+	      $scope.doFade = true;
+	    }, 8500);
+	
+	$timeout(function(){
+	      $scope.doshow = false;
+	    }, 9000);
 	let data = [{"CODE":"FHPS",	"BUS":"14-05"	,"DRIVER":"TBD",	"ROUTE":"6 (B)",	"AMPM":"AM",	"TIME":"7:35",	"LOCATION":"Myron Massey Blvd. and 53rd Place",	"LATLONG": "33.4823689,-86.9092869"},
 				{"CODE":"FHPS",	"BUS":"14-05"	,"DRIVER":"TBD",	"ROUTE":"6 (B)",	"AMPM":"PM",	"TIME":"7:35",	"LOCATION":"ABC Massey Blvd. and 53rd Place",	"LATLONG": "33.4823689,-86.9092869"}];
 	

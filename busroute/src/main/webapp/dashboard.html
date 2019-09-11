@@ -1,12 +1,17 @@
 	<!-- main div that contains everything -->
+	
+	
+	
 	<div ng-controller="dashboardController" class="container">
-		<br>
-		<br>
-		<br>
-		<!-- Alert -->
-		<div ng-show="alertExist" class="alert alert-danger" role="alert">
-			Bus A has been delayed 10 minutes
+	<br>
+	<div ng-class="{fade:doFade}" ng-show ="doshow">
+	<div ng-repeat="x in listAlerts"
+			class="alert alert-success alert-dismissible" id="alert">
+			
+			<strong>Alert!</strong> {{x}}
 		</div>
+	</div> 	
+		
 		<!-- row for dropdown -->
 		<div class="row"> 
 			<div class="col align-self-center">
