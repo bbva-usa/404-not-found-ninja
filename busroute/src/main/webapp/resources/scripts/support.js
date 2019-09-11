@@ -41,11 +41,11 @@ let selectedbusObject = routeFHPS_AM;
   		else
   		  selectedbusObject = routeRES_PM;
 
-  }else if(selectedBus.id === "FHES"){
+  }else if(selectedBus.id === "FHPS"){
 		if(selectedBus.AMPM === "AM")
-  		 selectedbusObject = routeFHES_AM;
+  		 selectedbusObject = routeFHPS_AM;
   		else
-  		  selectedbusObject = routeFHES_PM;
+  		  selectedbusObject = routeFHPS_PM;
 
   }
 
@@ -227,6 +227,8 @@ app.controller('dashboardController', function($scope, $http, $location, busses,
 });
 
 app.controller('mapViewController' , function($scope, $http, $location, busses, ampms, $timeout){
+ //selectedBus = { id: 'FHPS', name: 'Blue-(Morning)', AMPM: 'AM'};
+
 	initMap();
   $scope.selectedRoute = "Blue-(Morning)"
   var routeFHPS_AM = [{Time : "7:30 A.M.",Address :  "Ave. C and 61st Street Back side of",Lat  :"33.4984164",Long : "-86.8967907", Stop: "A" },{Time : "7:33 A.M.",Address :  "Avenue C and Jerry D. Coleman",Lat  :"33.4758812",Long : "-86.9173647", Stop: "B" },{Time : "7:35 A.M.",Address :  "61st Street and Myron Massey Blvd.",Lat  :"33.4769925",Long : "-86.9094935", Stop: "C" },{Time : "7:32 A.M.",Address :  "60th Street and Myron Massey Blvd.",Lat  :"33.4771589",Long : "-86.9093703", Stop: "D" },{Time : "7:33 A.M.",Address :  "Myron Massey Blvd. and 55th Place",Lat  :"33.4827151",Long : "-86.9092874", Stop: "E" },{Time : "7:35 A.M.",Address :  "Myron Massey Blvd. and 53rd Place",Lat  :"33.4823689",Long : "-86.9092869", Stop: "F" },{Time : "7:37 A.M.",Address :  "516 54th Street (Middle of the block)",Lat  :"33.4842922",Long : "-86.9128126", Stop: "G" },{Time : "7:41 A.M.",Address :  "54th and Avenue D",Lat  :"33.4825863",Long : "-86.9116957", Stop: "H" },{Time : "7:43 A.M.",Address :  "5174 Hillside Drive",Lat  :"33.4868579",Long : "-86.9139871", Stop: "I" },{Time : "7:44 A.M.",Address :  "721 Court G",Lat  :"33.5299801",Long : "-86.8849877", Stop: "J" },{Time : "7:50 A.M.",Address :  "Glen Oaks Elementary School",Lat  :"33.4912583",Long : "-86.9104421", Stop: "K"}];
@@ -265,7 +267,7 @@ app.controller('mapViewController' , function($scope, $http, $location, busses, 
   // { id: 'FHPS', name: 'Blue'}
   // ];
 
-  $scope.listBusses = [
+  $scope.listBusses =[
 	{ id: 'BOE', name: 'Yellow-(Morning)', AMPM: 'AM'},
 	{ id: 'DE9', name: 'Green-(Morning)', AMPM: 'AM'},
 	{ id: 'GOES', name: 'Orange-(Morning)', AMPM: 'AM'},
@@ -277,6 +279,8 @@ app.controller('mapViewController' , function($scope, $http, $location, busses, 
 	{ id: 'RES', name: 'Pink-(Evening)', AMPM: 'PM'},
 	{ id: 'FHPS', name: 'Blue-(Evening)', AMPM: 'PM'}
 	];
+ 
+	//$scope.selectedBus = { id: 'FHPS', name: 'Blue-(Morning)', AMPM: 'AM'};
 
   $scope.ampm = [
   { id: '0', name: 'AM'},
@@ -300,8 +304,12 @@ $scope.update = function(item) {
  $scope.callinitMap = function(item){
    let selectedBus = item;
    $scope.selectedRoute = selectedBus.name;
-   if(selectedBus.id === "BOE"){
-     if(selectedBus.AMPM === "AM")
+
+ 
+
+   console.log('selectedbus: ', selectedBus);
+    if(selectedBus.id === "BOE"){
+    if(selectedBus.AMPM === "AM")
        $scope.routes = routeBOE_AM;
      else
        $scope.routes = routeBOE_PM;
@@ -323,13 +331,14 @@ $scope.update = function(item) {
      else
        $scope.routes = routeRES_PM;
 
-   }else if(selectedBus.id === "FHPS"){
-     if(selectedBus.AMPM === "AM")
+  }else if(selectedBus.id === "FHPS"){
+    if(selectedBus.AMPM === "AM")
        $scope.routes = routeFHPS_AM;
-     else
-       $scope.routes = routeFHPS_PM;
-   }
-   $scope.$apply();
+      else
+        $scope.routes = routeFHPS_PM;
+  }
+
+  console.log('Routes:', $scope.routes);
 	initMap(item);
  } 
 
