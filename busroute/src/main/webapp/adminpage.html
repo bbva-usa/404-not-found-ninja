@@ -11,7 +11,7 @@
 					placeholder="enter alert upto 160 characters"
 					ng-model="alertMessage">  </textarea>
 			</div>
-			<button class="btn float-right login_btn">push alert</button>
+			<button class="btn float-right login_btn" ng-click="pushAlert(alertMessage)">push alert</button>
 
 		</div>
 		<br> <br> <br> 
@@ -19,12 +19,12 @@
 		<hr>
 
 		<br>
-		<button type="button" class="btn btn-warning btn-lg btn-block">clear all alerts</button>
+		<button type="button" class="btn btn-warning btn-lg btn-block" ng-click="deleteAllAlerts()">clear all alerts</button>
 	
 		<br>
 		<div ng-repeat="x in listAlerts"
-			class="alert alert-success alert-dismissible" id="{{x}}">
-			<button type="button" class="close">&times;</button>
+			class="alert alert-success alert-dismissible" id="alert">
+			<button type="button" class="close" ng-click="deleteAlert(x)">&times;</button>
 			<strong>Alert!</strong> {{x}}
 		</div>
 	</div>
