@@ -12,6 +12,33 @@
 		</style>
 	</head>
 
+	<!-- Alert -->
+		<div ng-show="alertExist" class="alert alert-danger" role="alert">
+			Bus A has been delayed 10 minutes
+		</div>
+		<!-- row for dropdown -->
+		<div class="row"> 
+			<div class="col align-self-center">
+				<select ng-model="selectedBus"
+				ng-options="bus.name for bus in listBusses">
+			</select>
+		</div>
+	</select>
+
+	<p>{{selectedBus}}</p>
+</div>
+<!-- row for the map -->
+<div class="row">
+
+	<div class="col align-self-center">
+		<select ng-model="AMPM"
+		ng-options="time.name for time in ampm" ng-change="update(AMPM)">
+	</select>
+</div>
+</select>
+<p>{{AMPM}}</p>
+</div>
+
 
 	<h2>Bus Routes</h2>
 	<div class="row">
