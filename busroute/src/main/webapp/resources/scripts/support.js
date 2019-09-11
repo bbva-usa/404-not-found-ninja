@@ -299,37 +299,37 @@ $scope.update = function(item) {
 
  $scope.callinitMap = function(item){
    let selectedBus = item;
-
    $scope.selectedRoute = selectedBus.name;
-    if(selectedBus.id === "BOE"){
-    if(selectedBus.AMPM === "AM")
+   if(selectedBus.id === "BOE"){
+     if(selectedBus.AMPM === "AM")
        $scope.routes = routeBOE_AM;
-      else
-        $scope.routes = routeBOE_PM;
+     else
+       $scope.routes = routeBOE_PM;
 
-  } else if(selectedBus.id === "DE9"){
-    if(selectedBus.AMPM === "AM")
+   } else if(selectedBus.id === "DE9"){
+     if(selectedBus.AMPM === "AM")
        $scope.routes = routeDE9_AM;
-      else
-        $scope.routes = routeDE9_PM;
-  } else if(selectedBus.id === "GOES"){
-    if(selectedBus.AMPM === "AM")
+     else
+       $scope.routes = routeDE9_PM;
+   } else if(selectedBus.id === "GOES"){
+     if(selectedBus.AMPM === "AM")
        $scope.routes = routeGOES_AM;
-      else
-        $scope.routes = routeGOES_PM;
+     else
+       $scope.routes = routeGOES_PM;
 
-  }else if(selectedBus.id === "RES"){
-      if(selectedBus.AMPM === "AM")
+   }else if(selectedBus.id === "RES"){
+     if(selectedBus.AMPM === "AM")
        $scope.routes = routeRES_AM;
-      else
-        $scope.routes = routeRES_PM;
+     else
+       $scope.routes = routeRES_PM;
 
-  }else if(selectedBus.id === "FHES"){
-    if(selectedBus.AMPM === "AM")
-       $scope.routes = routeFHES_AM;
-      else
-        $scope.routes = routeFHES_PM;
-  }
+   }else if(selectedBus.id === "FHPS"){
+     if(selectedBus.AMPM === "AM")
+       $scope.routes = routeFHPS_AM;
+     else
+       $scope.routes = routeFHPS_PM;
+   }
+   $scope.$apply();
 	initMap(item);
  } 
 
