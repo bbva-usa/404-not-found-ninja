@@ -43,8 +43,19 @@ app.config(function($routeProvider) {
 
 });
 
-app.controller('adminController', function($scope,$location, login){
+app.controller('adminController', function($scope,$location, $http,login){
 	$scope.adminLogged = login.getLogin();
+$scope.listAlerts = [];
+	
+	$http.get("rest/alerts",{},{headers: {'Content-Type': 'application/json'} }).then(function(data){
+		if(data.data.length>0)
+			{
+			$scope.listAlerts=data.data;
+			$scope.alertExist=true;
+			
+			}
+		
+		   });
 
 });
 
@@ -54,6 +65,17 @@ app.controller('indexcontroller', function($scope, $http, $location) {
 app.controller('dashboardController', function($scope, $http, $location, busses){
 	$scope.alertExist = false;
 	$scope.listAlerts = [];
+	
+	$http.get("rest/alerts",{},{headers: {'Content-Type': 'application/json'} }).then(function(data){
+		if(data.data.length>0)
+			{
+			$scope.listAlerts=data.data;
+			$scope.alertExist=true;
+			
+			}
+		
+		   });
+	
 
 	$scope.listBusses = [
     { id: 'BOE', name: 'Yellow'},

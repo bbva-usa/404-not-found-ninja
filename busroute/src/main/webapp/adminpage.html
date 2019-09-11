@@ -1,24 +1,39 @@
 
 <div class="container" ng-controller="adminController">
-<div ng-show="adminLogged">
-	<br> <br> <br> <br> <br>
-	<div class="input-group form-group">
 
-		<textarea class="form-control"
-			style="width: 50%; height: 20%; outline: 0;"
-			placeholder="enter alert upto 160 characters" ng-model="alertMessage">  </textarea>
-	</div>	
-		<button class="btn float-right login_btn">push alert</button>
+	<div ng-show="adminLogged">
+		<div>
+			<br> <br> <br> <br> <br>
+			<div class="input-group form-group">
 
-</div>	
+				<textarea class="form-control"
+					style="width: 50%; height: 20%; outline: 0;"
+					placeholder="enter alert upto 160 characters"
+					ng-model="alertMessage">  </textarea>
+			</div>
+			<button class="btn float-right login_btn">push alert</button>
 
-<div ng-show="!adminLogged">
-	<br>
+		</div>
+		<br> <br> <br> <br> <br>
+		<b> Manage current Alerts in system</b>
+		<hr>
+
+		<br>
+		<button type="button" class="btn btn-warning btn-lg btn-block">clear all alerts</button>
 	
-	<h3>
-		Please login before entering an alert.
-	</h3>
-	<a  class="linkText" href="#!/login">click to redirect to login</a>
+		<br>
+		<div ng-repeat="x in listAlerts"
+			class="alert alert-success alert-dismissible" id="{{x}}">
+			<button type="button" class="close">&times;</button>
+			<strong>Success!</strong> This alert box could indicate a successful
+			or positive action.
+		</div>
+	</div>
+	<div ng-show="!adminLogged">
+		<br>
 
-</div>
+		<h3>Please login before entering an alert.</h3>
+		<a class="linkText" href="#!/login">click to redirect to login</a>
+
+	</div>
 </div>
