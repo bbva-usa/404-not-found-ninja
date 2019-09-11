@@ -82,6 +82,22 @@ app.service('busses', function(){
 	}
 });
 
+app.service('ampms', function(){
+	var ampm = {
+		id: "",
+		name: ""
+	};
+	return {
+		getAmpm: function(){
+			return ampm;
+		},
+		setAmpm: function(value){
+			ampm = value;
+		}
+	}
+});
+
+
 app.config(function($routeProvider) {
 	$routeProvider.when("/", {
 		templateUrl : "dashboard.html",
@@ -95,6 +111,10 @@ app.config(function($routeProvider) {
 	});
 	$routeProvider.when("/mapview", {
 		templateUrl : "mapView.html"
+	});
+	
+	$routeProvider.when("/logout", {
+		templateUrl : "logout.html"
 	});
 
 
@@ -115,33 +135,38 @@ $scope.listAlerts = [];
 		
 		   });
 	
-	$scope.deleteAllAlerts = function(){
-		
-		$http.delete("rest/alerts",{},{headers: {'Content-Type': 'application/json'} }).then(function(data){  });
-	};
+	
 	
 $scope.deleteAllAlerts = function(){
 		
 		$http.delete("rest/alerts",{},{headers: {'Content-Type': 'application/json'} }).then(function(data){  });
-		location.reload();
+		$window.location.href ="#!/blank";
+		$window.location.href ="#!/adminpage";
+		//location.reload();
 	};
 
 $scope.deleteAlert = function(message){
 		
 		$http.delete("rest/alerts/"+message,{},{headers: {'Content-Type': 'application/json'} }).then(function(data){  });
-		location.reload();
+		$window.location.href ="#!/blank";
+		$window.location.href ="#!/adminpage";
+		//location.reload();
 	};
 
 $scope.deleteAlert = function(message){
 		
 		$http.delete("rest/alerts/"+message,{},{headers: {'Content-Type': 'application/json'} }).then(function(data){  });
-		location.reload();
+		$window.location.href ="#!/blank";
+		$window.location.href ="#!/adminpage";
+		//location.reload();
 	};
 	
 $scope.pushAlert = function(message){
 		
 		$http.post("rest/alerts/"+message,{},{headers: {'Content-Type': 'application/json'} }).then(function(data){  });
-		location.reload();
+		$window.location.href ="#!/blank";
+		$window.location.href ="#!/adminpage";
+		//location.reload();
 	};
 
 });
@@ -149,7 +174,7 @@ $scope.pushAlert = function(message){
 app.controller('indexcontroller', function($scope, $http, $location) {
 
 });
-app.controller('dashboardController', function($scope, $http, $location, busses){
+app.controller('dashboardController', function($scope, $http, $location, busses, ampms){
 	$scope.alertExist = false;
 	$scope.listAlerts = [];
 	
@@ -162,6 +187,9 @@ app.controller('dashboardController', function($scope, $http, $location, busses)
 			}
 		
 		   });
+
+	let data = [{"CODE":"FHPS",	"BUS":"14-05"	,"DRIVER":"TBD",	"ROUTE":"6 (B)",	"AMPM":"AM",	"TIME":"7:35",	"LOCATION":"Myron Massey Blvd. and 53rd Place",	"LATLONG": "33.4823689,-86.9092869"},
+				{"CODE":"FHPS",	"BUS":"14-05"	,"DRIVER":"TBD",	"ROUTE":"6 (B)",	"AMPM":"PM",	"TIME":"7:35",	"LOCATION":"ABC Massey Blvd. and 53rd Place",	"LATLONG": "33.4823689,-86.9092869"}];
 	
 
 	$scope.listBusses = [
@@ -172,9 +200,35 @@ app.controller('dashboardController', function($scope, $http, $location, busses)
 	{ id: 'FHPS', name: 'Blue'}
 	];
 
+	$scope.ampm = [
+	{ id: '0', name: 'AM'},
+	{ id: '1', name: 'PM'}
+	];
+
+ 	
+
+$scope.update = function(item) {
+   let refinedData = [];
+ 	console.log('refinedData: ', refinedData, item);
+        for (let j =0; j<data.length-1;j++) {
+		console.log('data: ', data[j].AMPM);
+        	if(data[j].AMPM === item.name){
+        		refinedData.push(data[j]);
+        	}};
+
+        console.log('refinedData: ', refinedData);
+  }  
+
+
+
+
+	function setAmpm(ampm){
+        ampms.setAmpm(ampm);
+    }
+
 	function setBus(bus){
 		busses.setBus(bus);
-	}
+	};
 
 	function getAlerts(){
 		$scope.listAlerts = [];
@@ -191,18 +245,28 @@ app.controller('mapViewController' , function($scope, $location){
 });
 
 
+app.controller('logoutController', function($scope, $http, $location,$window, $cookies, $cookieStore){
+	$cookieStore.put('userlogged',false);
+	
+});
 
 app.controller('loginController', function($scope, $http, $location,$window, $cookies, $cookieStore){
-	console.log("invoked");
+	
+			
+
 	$scope.adminuser="admin";
 	$scope.password="password";
 	$scope.adminLogged=false;
+	if($cookieStore.get('userlogged'))
+	{	$scope.adminLogged=true;
+		$window.location.href ="#!/adminpage";
+	}
 	$scope.login = function(username,password){
 		console.log("invoked");
 		if(username==$scope.adminuser && password==$scope.password)
 		{ 
 			$scope.adminLogged=true;
-			$cookieStore.put('userlogged',true)
+			$cookieStore.put('userlogged',true);
 			$window.location.href ="#!/adminpage";
 		}
 	};
