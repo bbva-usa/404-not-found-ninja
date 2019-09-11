@@ -19,8 +19,9 @@
 		<!-- row for dropdown -->
 		<div class="row"> 
 			<div class="col align-self-center">
+				<label>Select a Bus and AM/PM : </label>
 				<select ng-model="selectedBus"
-				ng-options="bus.name for bus in listBusses">
+				ng-options="bus.name for bus in listBusses" ng-change="callinitMap(selectedBus)">
 			</select>
 		</div>
 	</select>
@@ -28,7 +29,7 @@
 	<p>{{selectedBus}}</p>
 </div>
 <!-- row for the map -->
-<div class="row">
+<!-- <div class="row">
 
 	<div class="col align-self-center">
 		<select ng-model="AMPM"
@@ -37,7 +38,7 @@
 </div>
 </select>
 <p>{{AMPM}}</p>
-</div>
+</div> -->
 
 
 	<h2>Bus Routes</h2>
