@@ -14,7 +14,7 @@
 			<button class="btn float-right login_btn">push alert</button>
 
 		</div>
-		<br> <br> <br> <br> <br>
+		<br> <br> <br> 
 		<b> Manage current Alerts in system</b>
 		<hr>
 
@@ -25,8 +25,7 @@
 		<div ng-repeat="x in listAlerts"
 			class="alert alert-success alert-dismissible" id="{{x}}">
 			<button type="button" class="close">&times;</button>
-			<strong>Success!</strong> This alert box could indicate a successful
-			or positive action.
+			<strong>Alert!</strong> {{x}}
 		</div>
 	</div>
 	<div ng-show="!adminLogged">
