@@ -21,7 +21,13 @@
 		<!-- row for the map -->
 		<div class="row">
 
-
+<div class="col align-self-center">
+				<select ng-model="AMPM"
+          ng-options="time.name for time in ampm" ng-change="update(AMPM)">
+    </select>
+			</div>
+    </select>
+    	<p>{{AMPM}}</p>
 		</div>
 
 	</div>
