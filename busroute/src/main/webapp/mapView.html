@@ -1,5 +1,13 @@
 <div class="container-fluid" ng-controller="mapViewController">
-	<br><br>
+<br>
+ <div ng-class="{fade:doFade}" ng-show ="doshow">
+    <div ng-repeat="x in listAlerts"
+            class="alert alert-danger alert-dismissible" id="alert">
+            
+            <strong>Alert!</strong> {{x}}
+        </div>
+    </div>  
+
 	<head>
 		<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
 		<meta charset="utf-8">
@@ -12,12 +20,6 @@
 		</style>
 	</head>
 
-	<!-- Alert -->
-		<div ng-show="alertExist" class="alert alert-danger" role="alert">
-			Bus A has been delayed 10 minutes
-		</div>
-		<!-- row for dropdown -->
-			<h2>Bus Routes</h2>
 		<div class="row"> 
 			<div class="col align-self-center">
 				<label>Select a Bus and AM/PM : </label>
@@ -28,19 +30,9 @@
 	</select>
 
 </div>
-<!-- row for the map -->
-<!-- <div class="row">
-
-	<div class="col align-self-center">
-		<select ng-model="AMPM"
-		ng-options="time.name for time in ampm" ng-change="update(AMPM)">
-	</select>
-</div>
-</select>
-<p>{{AMPM}}</p>
-</div> -->
 
 
+<br>
 
 	<div class="row">
 		<!-- map -->
