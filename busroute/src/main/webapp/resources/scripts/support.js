@@ -49,19 +49,8 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer) {
   });
 };
 
-var app = angular.module('busRouteApp', [ "ngRoute"]);
+var app = angular.module('busRouteApp', [ "ngRoute","ngCookies"]);
 
-app.service('login', function(){
-	var logedIn = false;
-	return {
-		getLogin: function(){
-			return logedIn;
-		},
-		setLogin: function(value){
-			logedIn = value;
-		}
-	}
-})
 
 app.service('busses', function(){
 	var Bus = {
@@ -97,8 +86,8 @@ app.config(function($routeProvider) {
 
 });
 
-app.controller('adminController', function($scope,$location, $http,login){
-	$scope.adminLogged = login.getLogin();
+app.controller('adminController', function($scope,$location,$window, $http,$cookies, $cookieStore){
+	$scope.adminLogged = $cookieStore.get('userlogged');
 $scope.listAlerts = [];
 	
 	$http.get("rest/alerts",{},{headers: {'Content-Type': 'application/json'} }).then(function(data){
@@ -110,6 +99,35 @@ $scope.listAlerts = [];
 			}
 		
 		   });
+	
+	$scope.deleteAllAlerts = function(){
+		
+		$http.delete("rest/alerts",{},{headers: {'Content-Type': 'application/json'} }).then(function(data){  });
+	};
+	
+$scope.deleteAllAlerts = function(){
+		
+		$http.delete("rest/alerts",{},{headers: {'Content-Type': 'application/json'} }).then(function(data){  });
+		location.reload();
+	};
+
+$scope.deleteAlert = function(message){
+		
+		$http.delete("rest/alerts/"+message,{},{headers: {'Content-Type': 'application/json'} }).then(function(data){  });
+		location.reload();
+	};
+
+$scope.deleteAlert = function(message){
+		
+		$http.delete("rest/alerts/"+message,{},{headers: {'Content-Type': 'application/json'} }).then(function(data){  });
+		location.reload();
+	};
+	
+$scope.pushAlert = function(message){
+		
+		$http.post("rest/alerts/"+message,{},{headers: {'Content-Type': 'application/json'} }).then(function(data){  });
+		location.reload();
+	};
 
 });
 
@@ -154,7 +172,7 @@ app.controller('mapViewController' , function($scope, $location){
 
 
 
-app.controller('loginController', function($scope, $http, $location,$window, login){
+app.controller('loginController', function($scope, $http, $location,$window, $cookies, $cookieStore){
 	console.log("invoked");
 	$scope.adminuser="admin";
 	$scope.password="password";
@@ -164,7 +182,7 @@ app.controller('loginController', function($scope, $http, $location,$window, log
 		if(username==$scope.adminuser && password==$scope.password)
 		{ 
 			$scope.adminLogged=true;
-			login.setLogin(true);
+			$cookieStore.put('userlogged',true)
 			$window.location.href ="#!/adminpage";
 		}
 	};
